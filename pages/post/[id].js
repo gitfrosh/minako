@@ -1,34 +1,18 @@
 import MyHead from "../../components/MyHead";
 import Layout from "../../components/Layout";
 import fetchPosts from "../../helpers/api";
-import dynamic from "next/dynamic";
-import MarkdownIt from 'markdown-it'
-import { useState } from "react";
-const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
-  ssr: false,
-});
-
-// Initialize a markdown parser
-const mdParser = new MarkdownIt(/* Markdown-it options */);
+import Editor from "../../components/Editor";
 
 const Post = ({ post }) => {
-  const [text, setText] = useState(post.html);
   return (
     <>
-      <MyHead title={`Blog - ${post.title}`} />
+      <MyHead />
       <Layout>
         <h2>{post.title}</h2>
         <p className="date">{post.date}</p>
 
         <section>
-          <MdEditor
-            value={text}
-            style={{ height: "500px" }}
-            renderHTML={(text) => mdParser.render(text)}
-            onChange={({text, html}, event) => {
-              setText(text)
-            }}
-          />
+          <Editor post={post} />
         </section>
       </Layout>
 

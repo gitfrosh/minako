@@ -21,27 +21,33 @@ function Nav() {
     <>
       <header>
         <nav role="navigation">
-          <Link href="/new">New Post </Link>
-          <Link href="/">Home </Link>
-
+          <div>
+            <h1>minako</h1>
+            <span className="subtitle">cms made simple</span>
+          </div>
+          <div className="menu">
+            <a className="button" href="/">
+              Home
+            </a>
+          </div>{" "}
         </nav>
       </header>
       <style jsx>{`
         header {
           width: auto;
-          text-align: right;
           top: 0;
           left: 0;
           overflow: hidden;
-          padding: 17px 15px;
+          padding: 4rem;
           background: #fff;
           -webkit-transform: translateX(0);
           transform: translateX(0);
           -webkit-transition: all 0.4s;
           transition: all 0.4s;
         }
-        nav {
-          float: right;
+        .menu {
+           float : right;
+           margin-top: -8rem;
         }
       `}</style>
     </>

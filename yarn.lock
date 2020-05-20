@@ -953,6 +953,11 @@
   resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.4.1.tgz#92dbf3e6fba7d160b2a7d95d6a53d0e77fa1ece9"
   integrity sha512-oN+htA/GmBNx+aAsCOTElTuCPad9ETPSg/G/B7xM1sI+7VoPqhXJ2P3Feoup3J5Rpw6TF1vUHSzlpELDu6/law==
 
+"@scarf/scarf@^1.0.4":
+  version "1.0.5"
+  resolved "http://medapf-ci.iavgroup.local:80/mvn/api/npm/npm-remote/@scarf/scarf/-/scarf-1.0.5.tgz#accee0bce88a9047672f7c8faf3cada59c996b81"
+  integrity sha1-rM7gvOiKkEdnL3yPrzytpZyZa4E=
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -4817,6 +4822,13 @@ react-refresh@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.2.tgz#24bb0858eac92b0d7b0dd561747f0c9fd6c60327"
   integrity sha512-n8GXxo3DwM2KtFEL69DAVhGc4A1THn2qjmfvSo3nze0NLCoPbywazeJPqdp0RdSGLmyhQzeyA+XPXOobbYlkzg==
+
+react-table@^7.1.0:
+  version "7.1.0"
+  resolved "http://medapf-ci.iavgroup.local:80/mvn/api/npm/npm-remote/react-table/-/react-table-7.1.0.tgz#c975cd67e917c54190b6c9df29f085285b0c3f4e"
+  integrity sha1-yXXNZ+kXxUGQtsnfKfCFKFsMP04=
+  dependencies:
+    "@scarf/scarf" "^1.0.4"
 
 react@^16.13.1, react@^16.9.0:
   version "16.13.1"

@@ -27,6 +27,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown-editor-lite": "^1.1.2",
+    "react-table": "^7.1.0",
     "uuid": "^8.0.0"
   }
 }
