@@ -1,3 +1,3 @@
 [
-    "title", "markup", "date", "slug"
+    "title", "category", "date", "id", "html", "slug", "createdAt", "updatedAt"
 ]

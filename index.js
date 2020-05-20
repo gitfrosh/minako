@@ -98,9 +98,10 @@ app.prepare().then(() => {
 
   server.get(
     "/posts",
-    require("connect-ensure-login").ensureLoggedIn(),
     function (req, res) {
-      res.send(db.get("posts"), { user: req.user });
+      // res.send(db.get("posts"), { user: req.user });
+      res.send(db.get("posts"));
+
     }
   );
 
