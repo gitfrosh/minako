@@ -36,14 +36,13 @@ const Layout = (props) => (
         }
         main {
           height: 100vh;
-
+          max-width: 1076px;
           text-align: left;
           display: inline-block;
           padding: 1em 1em 1em 1em;
         }
         .wrapper {
           min-height: 100vh;
-
           background-color: #fff;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
             0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -53,7 +52,7 @@ const Layout = (props) => (
           padding-bottom: 2.5rem; /* Footer height */
         }
         .outline {
-          padding: 3em 3em 3em 3em;
+          padding: 0em 3em 3em 3em;
           overflow: hidden;
           height: 100%;
           outline: none;

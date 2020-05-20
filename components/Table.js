@@ -35,22 +35,25 @@ const Table = ({ posts }) => {
         id: "actions",
 
         Header: "",
-        Cell: (row) => (
-          <div>
-            <Link
-              prefetch={false}
-              href={`/post/[post]`}
-              as={`/post/${row.id}`}
-              passHref
-            >
-              <a>edit</a>
-            </Link>{" "}
-            |{" "}
-            <Link href="#">
-              <a onClick={() => onDelete(row.id)}>delete </a>
-            </Link>
-          </div>
-        ),
+        Cell: (data) => {
+          console.log(data)
+          const id = data.row.original.id;
+          return  <div>
+          <Link
+            prefetch={false}
+            href={`/post/[post]`}
+            as={`/post/${id}`}
+            passHref
+          >
+            <a>edit</a>
+          </Link>{" "}
+          |{" "}
+          <Link href="#">
+            <a onClick={() => onDelete(id)}>delete </a>
+          </Link>
+        </div>
+        }
+         
       },
     ],
     []

@@ -1,12 +1,11 @@
 import fetch from "node-fetch";
 
-let cms_host = "localhost";
-if (process.env.NODE_ENV === "production") {
-  cms_host = "strapi";
-}
+const cms_host = process.env.CMS_HOST || "localhost";
+const cms_port = process.env.CMS_PORT || "1341";
+
 
 export default async function fetchPosts() {
-  const res = await fetch(`http://${cms_host}:1340/posts`, {
+  const res = await fetch(`http://${cms_host}:${cms_port}/posts`, {
     method: "GET",
     // headers: {
     //   Authorization:
@@ -14,6 +13,7 @@ export default async function fetchPosts() {
     //   "Content-Type": "application/json"
     // }
   });
+  console.log(res);
   let posts = await res.json();
   //   console.log(posts);
   // posts.forEach(post => {
@@ -22,6 +22,6 @@ export default async function fetchPosts() {
   //   post.month = post.date.substring(5, 7);
   //   post.day = post.date.substring(8, 10);
   // });
-//   console.log(posts);
+  //   console.log(posts);
   return posts;
 }

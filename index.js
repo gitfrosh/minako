@@ -96,14 +96,10 @@ app.prepare().then(() => {
   //     res.render('profile', { user: req.user });
   //   });
 
-  server.get(
-    "/posts",
-    function (req, res) {
-      // res.send(db.get("posts"), { user: req.user });
-      res.send(db.get("posts"));
-
-    }
-  );
+  server.get("/posts", (req, res) => {
+    // res.send(db.get("posts"), { user: req.user });
+    res.send(db.get("posts"));
+  });
 
   // app.get("/posts", (req, res) => {
   //   // if (req.session && req.session.authenticated) {
@@ -140,9 +136,9 @@ app.prepare().then(() => {
     // }
   });
 
-  server.get('*', (req, res) => {
+  server.get("*", (req, res) => {
     return handle(req, res);
   });
 
-  server.listen(process.env.PORT || 1340);
+  server.listen(process.env.PORT || 1341);
 });

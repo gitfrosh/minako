@@ -11,3 +11,11 @@
     text-transform: unset;
     white-space: unset;
 }
+
+label {
+    font-weight: unset;
+}
+
+input {
+    width: 100%;
+}

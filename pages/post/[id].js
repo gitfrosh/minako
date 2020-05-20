@@ -1,18 +1,16 @@
 import MyHead from "../../components/MyHead";
 import Layout from "../../components/Layout";
 import fetchPosts from "../../helpers/api";
-import Editor from "../../components/Editor";
+import Form from "../../components/Form";
 
 const Post = ({ post }) => {
   return (
     <>
       <MyHead />
       <Layout>
-        <h2>{post.title}</h2>
-        <p className="date">{post.date}</p>
-
         <section>
-          <Editor post={post} />
+          <h2>Edit post</h2>
+          <Form post={post} />
         </section>
       </Layout>
 
