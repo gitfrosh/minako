@@ -36,7 +36,6 @@ const Table = ({ posts }) => {
 
         Header: "",
         Cell: (data) => {
-          console.log(data)
           const id = data.row.original.id;
           return  <div>
           <Link

@@ -20,6 +20,10 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  // Use application-level middleware for common functionality, including
+  // logging, parsing, and session handling.
+  server.use(require("body-parser").json());
+
   // Configure the local strategy for use by Passport.
   // The local strategy require a `verify` function which receives the credentials
   // (`username` and `password`) submitted by the user.  The function must verify
@@ -72,12 +76,8 @@ app.prepare().then(() => {
   server.use(passport.initialize());
   server.use(passport.session());
 
-  // Use application-level middleware for common functionality, including
-  // logging, parsing, and session handling.
-  server.use(require("body-parser").urlencoded({ extended: true }));
-
   server.post(
-    "/login",
+    "/api/login",
     passport.authenticate("local", {
       successRedirect: "/",
       failureRedirect: "/login",
@@ -85,7 +85,7 @@ app.prepare().then(() => {
     })
   );
 
-  server.get("/logout", function (req, res) {
+  server.get("/api/logout", function (req, res) {
     req.logout();
     res.redirect("/");
   });
@@ -96,40 +96,75 @@ app.prepare().then(() => {
   //     res.render('profile', { user: req.user });
   //   });
 
-  server.get("/posts", (req, res) => {
-    // res.send(db.get("posts"), { user: req.user });
+  server.get("/api/posts", (req, res) => {
     res.send(db.get("posts"));
   });
 
-  // app.get("/posts", (req, res) => {
-  //   // if (req.session && req.session.authenticated) {
-  //   res.send(db.get("posts"));
-  //   // } else {
-  //   //   return res.sendStatus(401);
-  //   // }
-  // });
-
-  server.post("/posts", (req, res) => {
+  server.post("/api/posts", (req, res) => {
+    console.log("body", req.body);
     // if (req.session && req.session.authenticated) {
-    db.get("posts")
-      .push({
-        id: uuid.v1(),
-        html: "test",
-        date: "2020-09-01",
-        slug: "/hello/hello",
-      })
-      .write();
-    //   return res.sendStatus(401);
+    try {
+      db.get("posts")
+        .push({
+          id: uuid.v1(),
+          html: req.body.html,
+          date: req.body.date,
+          slug: req.body.slug,
+          category: req.body.category,
+          title: req.body.title,
+          createdAt: req.body.createdAt,
+          updatedAt: req.body.updatedAt,
+        })
+        .write();
+      return res.sendStatus(201);
+    } catch (e) {
+      console.error(e);
+      return res.sendStatus(500);
+    }
+
     // }
   });
 
-  server.delete("/posts", (req, res) => {
+  server.put("/api/post/:id", (req, res) => {
+    try {
+      const id = req.params.id;
+      const html = req.body.html;
+      const date = req.body.date;
+      const slug = req.body.slug;
+      const title = req.body.title;
+      const category = req.body.category;
+      const createdAt = req.body.createdAt;
+      const updatedAt = req.body.updatedAt;
+      db.get("posts")
+        .find({ id: id })
+        .assign({
+          html: html,
+          date: date,
+          slug: slug,
+          title: title,
+          createdAt: createdAt,
+          updatedAt: updatedAt,
+          category: category
+        })
+        .write();
+      return res.sendStatus(204);
+    } catch (e) {
+      console.error(e);
+      return res.sendStatus(500);
+    }
+  });
+
+  server.delete("/api/post/:id", (req, res) => {
+    const id = req.params.id;
     // if (req.session && req.session.authenticated) {
     try {
-      db.get("posts").remove().write();
+      db.get("posts")
+        .find({ id: id })
+        .remove().write();
+      return res.sendStatus(204);
     } catch (e) {
-      res.send(e);
-      // console.error(e);
+      console.error(e);
+      return res.sendStatus(500);
     }
     // } else {
     //   return res.sendStatus(401);

@@ -1,10 +1,32 @@
 import { useForm, useField } from "react-form";
 import Editor from "./Editor";
 import DatePicker from "react-datepicker";
+import moment from "moment";
+import { editPost, postPost } from "../helpers/api";
 
-async function sendToFakeServer(values) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return values;
+function todayToMongoISO() {
+  return moment(new Date()).format("YYYY-MM-DD[T00:00:00.000Z]");
+}
+
+async function sendToServer(values,{
+  isEditor, id
+} ) {
+  console.log("isEd ", isEditor);
+  console.log("id ", id);
+
+  let formattedDate = moment(values.date).format("YYYY-MM-DD");
+  values.date = formattedDate;
+  values.updatedAt = todayToMongoISO();
+  console.log("date ", values.date);
+  console.log("creAt ", values.createdAt);
+  console.log("updAt ", values.updatedAt);
+
+  if (!isEditor) {
+    postPost(values);
+  }
+  if (isEditor) {
+    editPost(id, values);
+  }
 }
 
 function TitleField({ title }) {
@@ -28,19 +50,18 @@ function TitleField({ title }) {
   );
 }
 
-function DateField({ createdAt }) {
+function DateField({ date }) {
   const {
     value = [],
     setValue,
     meta: { error, isTouched, isValidating },
     getInputProps,
-  } = useField("createdAt", {
-    defaultValue: createdAt,
+  } = useField("date", {
+    defaultValue: date,
     //   validate: validateAddressStreet
   });
 
   const handleChange = (date) => {
-    console.log(date);
     setValue(date);
   };
 
@@ -68,8 +89,28 @@ function SlugField({ slug }) {
   );
 }
 
+function CreatedAtField({ createdAt }) {
+  const {
+    meta: { error, isTouched, isValidating },
+    getInputProps,
+  } = useField("createdAt", {
+    defaultValue: createdAt,
+    //   validate: validateAddressStreet
+  });
+
+  return (
+    <>
+      <input
+        style={{ display: "none" }}
+        type="hidden"
+        type="text"
+        {...getInputProps()}
+      />
+    </>
+  );
+}
+
 function TextField({ html }) {
-  console.log(html);
   const {
     setValue,
 
@@ -82,7 +123,6 @@ function TextField({ html }) {
   });
 
   const handleChange = (text) => {
-    console.log(text);
     setValue(text);
   };
 
@@ -99,7 +139,6 @@ function TextField({ html }) {
 }
 
 function CategoryField({ category }) {
-  console.log(category);
   const {
     meta: { error, isTouched, isValidating },
     getInputProps,
@@ -122,7 +161,6 @@ function CategoryField({ category }) {
 }
 
 function Form({ post }) {
-  console.log(post);
   const {
     Form,
     meta: { isSubmitting, canSubmit },
@@ -130,7 +168,7 @@ function Form({ post }) {
     onSubmit: async (values, instance) => {
       // onSubmit (and everything else in React Form)
       // has async support out-of-the-box
-      await sendToFakeServer(values);
+      await sendToServer(values, { isEditor: !!post, id: post && post.id || null});
       console.log("Huzzah!");
     },
     debugForm: true,
@@ -155,7 +193,7 @@ function Form({ post }) {
       </div>
       <div>
         <label>
-          Date: <DateField createdAt={(post && new Date(post.createdAt)) || ""} />
+          Date: <DateField date={(post && new Date(post.date)) || new Date()} />
         </label>
       </div>
       <div>
@@ -163,6 +201,10 @@ function Form({ post }) {
           Text: <TextField html={(post && post.html) || ""} />
         </label>
       </div>
+
+      <CreatedAtField
+        createdAt={(post && post.createdAt) || todayToMongoISO()}
+      />
 
       <div>
         <button type="submit" disabled={!canSubmit}>

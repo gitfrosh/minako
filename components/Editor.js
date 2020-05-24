@@ -9,7 +9,7 @@ const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 const Editor = ({handleChange, html}) => {
-  const [text, setText] = useState(html || "");
+  const [text, ] = useState(html || "");
   return (
     <MdEditor
       value={text}

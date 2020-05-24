@@ -1,5 +1,5 @@
 import Layout from "./../components/Layout";
-import fetchPosts from "../helpers/api";
+import { fetchPosts } from "../helpers/api";
 import Table from "../components/Table"
 function HomePage({ posts }) {
   return (

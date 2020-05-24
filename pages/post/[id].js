@@ -1,6 +1,6 @@
 import MyHead from "../../components/MyHead";
 import Layout from "../../components/Layout";
-import fetchPosts from "../../helpers/api";
+import { fetchPosts } from "../../helpers/api";
 import Form from "../../components/Form";
 
 const Post = ({ post }) => {
