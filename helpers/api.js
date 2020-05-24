@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 const cms_host = process.env.CMS_HOST || "localhost";
-const cms_port = process.env.CMS_PORT || "1341";
+const cms_port = process.env.CMS_PORT || "1340";
 
 export async function deletePost(id) {
   try {
