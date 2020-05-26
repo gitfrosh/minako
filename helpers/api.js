@@ -3,6 +3,29 @@ import fetch from "node-fetch";
 const cms_host = process.env.CMS_HOST || "localhost";
 const cms_port = process.env.CMS_PORT || "1340";
 
+export async function login(values) {
+  console.log(values)
+  try {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values)
+
+    };
+
+    const response = await fetch("/api/login", requestOptions);
+    console.log("👉 Returned data:", response);
+    const token = await response.json()
+    console.log(token)
+    return response;
+  } catch (e) {
+    console.log(`😱 Request failed: ${e}`);
+  }
+}
+
 export async function deletePost(id) {
   try {
     const requestOptions = {

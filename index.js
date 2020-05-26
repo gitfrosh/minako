@@ -42,10 +42,6 @@ app.prepare().then(() => {
     ],
   }).write();
 
-  // server.post("/api/login", function (req, res) {
-  //   // ...
-  // });
-
   //This verifies that the token sent by the user is valid
   passport.use(
     new JWTstrategy(
@@ -98,6 +94,7 @@ app.prepare().then(() => {
   );
 
   server.post("/api/login", async (req, res) => {
+    console.log("LOGIN")
     passport.authenticate("login", async (err, user, info) => {
       try {
         if (err || !user) {
@@ -213,13 +210,35 @@ app.prepare().then(() => {
     }
   );
 
+  server.get("/", (req, res) => {
+    if (req.user) {
+      return handle(req, res);
+    } else {
+      res.redirect("/login");
+    }
+  });
+
+  server.get("/new", (req, res) => {
+    if (req.user) {
+      return handle(req, res);
+    } else {
+      res.redirect("/login");
+    }
+  });
+
+  server.get("/post/:id", (req, res) => {
+    if (req.user) {
+      return handle(req, res);
+    } else {
+      res.redirect("/login");
+    }
+  });
+
   server.get("/login", (req, res) => {
-    // not secure
     return handle(req, res);
   });
 
   server.get("*", (req, res) => {
-    // secure
     return handle(req, res);
   });
 
@@ -229,5 +248,5 @@ app.prepare().then(() => {
     res.json({ error: err });
   });
 
-  server.listen(process.env.PORT || 1340);
+  server.listen(process.env.CMS_PORT || 1340);
 });
