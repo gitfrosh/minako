@@ -1,6 +1,7 @@
 import { useForm, useField } from "react-form";
 import { login } from "../helpers/api";
-import Router from 'next/router'
+import Router from "next/router";
+import { useToasts } from "react-toast-notifications";
 
 function UsernameField() {
   const {
@@ -43,6 +44,8 @@ function PasswordField() {
 }
 
 function Login() {
+  const { addToast } = useToasts();
+
   const {
     Form,
     meta: { isSubmitting, canSubmit },
@@ -59,18 +62,22 @@ function Login() {
   async function setCookie(name, value, days) {
     var expires = "";
     if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
+      var date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
   }
 
   async function sendToServer(values) {
-    const token = await login(values);
-    setCookie("minako", token.token, 7)
-    Router.push('/')
-
+    const response = await login(values);
+    if (response.message) {
+      addToast(response.message, { appearance: "error" });
+    } else {
+      addToast("Login successful", { appearance: "success" });
+      setCookie("minako", response.token, 7);
+      Router.push("/");
+    }
   }
 
   return (

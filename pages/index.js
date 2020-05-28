@@ -1,4 +1,4 @@
-import Layout from "./../components/Layout";
+import Layout from "../components/Layout";
 import { fetchPosts } from "../helpers/api";
 import Table from "../components/Table";
 import { useState, useEffect } from "react";

@@ -116,9 +116,14 @@ app.prepare().then(() => {
     })(req, res, next);
   });
 
-  server.get("/logout", function (req, res) {
-    req.logout();
-    res.redirect("/login");
+  server.get("/api/logout", function (req, res) {
+    try {
+      req.logout();
+      return res.sendStatus(200);
+
+    } catch(e) {
+      console.log(e)
+    }
   });
 
   server.get(

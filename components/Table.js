@@ -17,27 +17,34 @@ const Table = ({ posts }) => {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Column 1",
+        Header: "Title",
         accessor: "title",
         sortType: "basic",
       },
       {
-        Header: "Column 2",
+        Header: () => <center>Date</center>,
         accessor: "date",
         sortType: "basic",
+        Cell: (data) => {
+          const date = data.row.original.date;
+          return(<center>{date}</center>)
+        }
       },
       {
-        Header: "Column 2",
+        Header: () => <center>Category</center>,
         accessor: "category",
         sortType: "basic",
+        Cell: (data) => {
+          const category = data.row.original.category;
+          return(<center>{category}</center>)
+        }
       },
       {
         id: "actions",
-
         Header: "",
         Cell: (data) => {
           const id = data.row.original.id;
-          return  <div>
+          return  <center>
           <Link
             prefetch={false}
             href={`/post/[post]`}
@@ -50,7 +57,7 @@ const Table = ({ posts }) => {
           <Link href="#">
             <a onClick={() => onDelete(id)}>delete </a>
           </Link>
-        </div>
+        </center>
         }
          
       },
@@ -80,7 +87,6 @@ const Table = ({ posts }) => {
     },
     useFilters,
     useGroupBy,
-
     useSortBy,
     useExpanded,
     usePagination

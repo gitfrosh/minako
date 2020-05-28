@@ -6,7 +6,6 @@ const Footer = () => (
       footer{
         clear: both;
         position: relative;
-        height: 200px;
         padding: 4rem;
       }
       footer p {

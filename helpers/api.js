@@ -26,6 +26,36 @@ export async function login(values) {
   }
 }
 
+export async function logout() {
+  try {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch("/api/logout", requestOptions);
+    console.log("👉 Returned data:", response);
+    if (response.status === 200) {
+      return {
+        success: true
+      }
+    } else {
+      return {
+        message: "Logout failed"
+      }
+    }
+  } catch (e) {
+    console.log(`😱 Request failed: ${e}`);
+    return {
+      message: "Logout failed"
+    }
+  }
+}
+
+
 export async function deletePost(id) {
   try {
     const requestOptions = {

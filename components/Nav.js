@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { logout } from "../helpers/api";
+import { useToasts } from "react-toast-notifications";
+import Router from "next/router";
+
 // import styled from "styled-components";
 
 // const StyledLink = styled.a`
@@ -17,6 +21,19 @@ import Link from "next/link";
 // `;
 
 function Nav() {
+  const { addToast } = useToasts();
+
+  async function logoutNow(e) {
+    e.preventDefault();
+    const response = await logout();
+    if (response.success) {
+      addToast("Logout successful", { appearance: "success" });
+      document.cookie = "minako" + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      Router.push("/login");
+    } else {
+      addToast(response.message, { appearance: "error" });
+    }
+  }
   return (
     <>
       <header>
@@ -28,6 +45,9 @@ function Nav() {
           <div className="menu">
             <a className="button" href="/">
               Home
+            </a>{" "}
+            <a onClick={(e) => logoutNow(e)} className="button" href="/">
+              Logout
             </a>
           </div>{" "}
         </nav>
@@ -46,8 +66,8 @@ function Nav() {
           transition: all 0.4s;
         }
         .menu {
-           float : right;
-           margin-top: -8rem;
+          float: right;
+          margin-top: -8rem;
         }
       `}</style>
     </>
