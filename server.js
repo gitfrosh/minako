@@ -119,10 +119,15 @@ app.prepare().then(() => {
   server.get("/api/logout", function (req, res) {
     try {
       req.logout();
-      return res.sendStatus(200);
+      return res.json({
+        success: true
+      });
 
     } catch(e) {
       console.log(e)
+      return res.json({
+        message: "Logout failed"
+      });
     }
   });
 

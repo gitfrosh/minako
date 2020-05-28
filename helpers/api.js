@@ -1,113 +1,64 @@
 import fetch from "node-fetch";
 
-const cms_host = process.env.CMS_HOST || "localhost";
-const cms_port = process.env.CMS_PORT || "1340";
+
+
+export async function requester(url, method, values) {
+  console.dir(values)
+  const requestOptions = {
+    method: method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+  if (values) {
+    requestOptions.body = JSON.stringify(values)
+  }
+  try {
+
+  const response = await fetch(url, requestOptions);
+  console.log("👉 Returned data:", response);
+  console.log(response.status)
+  if (response.status > 399) {
+    return ({
+      success: false,
+      message: response.statusText
+    })
+
+  } else {
+    const json = await response.json();
+    console.log("👉 Returned json:", json);
+    return response.json()
+  }
+
+  } catch(e) {
+    console.log(`😱 Request failed: ${e}`);
+
+  }
+}
+
 
 export async function login(values) {
-  console.log(values)
-  try {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values)
-
-    };
-
-    const response = await fetch("/api/login", requestOptions);
-    console.log("👉 Returned data:", response);
-    const token = await response.json()
-    console.log(token)
-    return token;
-  } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
-  }
-}
+  return await requester("/api/login", "POST", values)
+}    
 
 export async function logout() {
-  try {
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    };
+  return await requester("/api/logout", "GET")
 
-    const response = await fetch("/api/logout", requestOptions);
-    console.log("👉 Returned data:", response);
-    if (response.status === 200) {
-      return {
-        success: true
-      }
-    } else {
-      return {
-        message: "Logout failed"
-      }
-    }
-  } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
-    return {
-      message: "Logout failed"
-    }
-  }
 }
 
-
 export async function deletePost(id) {
-  try {
-    const requestOptions = {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    };
-
-    const response = await fetch("/api/post/" + id, requestOptions);
-    console.log("👉 Returned data:", response);
-  } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
-  }
+  const url = "/api/post/" + id;
+  return await requester(url, "DELETE")
 }
 
 export async function postPost(values) {
-  console.dir(values)
-  try {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values)
-    };
-    
-    const response = await fetch("/api/posts", requestOptions);
-    console.log("👉 Returned data:", response);
-  } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
-  }
+  return await requester("/api/posts", "POST", values)
 }
 
 export async function editPost(id, values) {
-  try {
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    };
-
-    const response = await fetch("/api/post/" + id, requestOptions);
-    console.log("👉 Returned data:", response);
-  } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
-  }
+  const url = "/api/post/" + id;
+  return await requester(url, "PUT", values)
 }
 
 export async function fetchPosts(token) {
