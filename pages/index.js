@@ -15,23 +15,6 @@ function HomePage({ token }) {
       fetchData();
   }, []);
 
-  // const api = ``
-  // console.log(token)
-  // const { data, error } =  useSWR(api, fetcher(url, "GET"))
-  // console.log(data)
-  // if (error) return <div>failed to load</div>
-  // if (!data) return <div>loading...</div>
-
-  // const { status, data, error } = useQuery('posts', fetcher(fakeurl, "GET", token))
-
-  // if (data.length === 0) {
-  //   return <span>Loading...</span>;
-  // }
-
-  // if (status === 'error') {
-  //   return <span>Error: {error.message}</span>
-  // }
-
   if (data.length < 1) {
     return <Loading />
   }

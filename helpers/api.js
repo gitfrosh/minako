@@ -26,9 +26,7 @@ export async function requester(url, method, values) {
     })
 
   } else {
-    const json = await response.json();
-    console.log("👉 Returned json:", json);
-    return response.json()
+    return await response.json();
   }
 
   } catch(e) {
