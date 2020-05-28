@@ -1,16 +1,35 @@
 import MyHead from "../../components/MyHead";
 import Layout from "../../components/Layout";
-import { fetchPosts } from "../../helpers/api";
+import { fetchPost } from "../../helpers/api";
 import Form from "../../components/Form";
+import { useState, useEffect } from "react";
+import Loading from "../../components/Loading";
+import { useRouter } from "next/router";
 
-const Post = ({ post }) => {
+const Post = ({ token }) => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetchPost(id, token);
+      setData(result);
+    };
+    fetchData();
+  }, []);
+
+  if (data && data.length < 1) {
+    return <Loading />;
+  }
+
   return (
     <>
       <MyHead />
       <Layout>
         <section>
           <h2>Edit post</h2>
-          <Form post={post} />
+          <Form post={data} />
         </section>
       </Layout>
 
@@ -24,33 +43,5 @@ const Post = ({ post }) => {
     </>
   );
 };
-
-// This function gets called at build time
-export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
-  const posts = await fetchPosts();
-
-  // Get the paths we want to pre-render based on posts
-  const paths = posts.map((post) => ({
-    params: {
-      id: post.id,
-    },
-  }));
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
-}
-
-// This also gets called at build time
-export async function getStaticProps({ params }) {
-  // params contains the post `id`.
-  // If the route is like /posts/1, then params.id is 1
-  const posts = await fetchPosts();
-
-  const post = posts.filter((post) => post.id === params.id)[0];
-  // Pass post data to the page via props
-  return { props: { post } };
-}
 
 export default Post;

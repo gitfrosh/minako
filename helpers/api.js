@@ -20,7 +20,7 @@ export async function login(values) {
     console.log("👉 Returned data:", response);
     const token = await response.json()
     console.log(token)
-    return response;
+    return token;
   } catch (e) {
     console.log(`😱 Request failed: ${e}`);
   }
@@ -80,9 +80,9 @@ export async function editPost(id, values) {
   }
 }
 
-export async function fetchPosts() {
+export async function fetchPosts(token) {
   try {
-    const res = await fetch(`http://${cms_host}:${cms_port}/api/posts`, {
+    const res = await fetch(`/api/posts?secret_token=${token}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -94,3 +94,19 @@ export async function fetchPosts() {
     console.log(`😱 Request failed: ${e}`);
   }
 }
+
+export async function fetchPost(id, token) {
+  try {
+    const res = await fetch(`/api/post/${id}?secret_token=${token}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let posts = await res.json();
+    return posts;
+  } catch (e) {
+    console.log(`😱 Request failed: ${e}`);
+  }
+}
+

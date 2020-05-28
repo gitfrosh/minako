@@ -2,20 +2,34 @@ import "milligram/dist/milligram.min.css";
 import "react-markdown-editor-lite/lib/index.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "../helpers/styles.css";
-import AuthContext from "../helpers/AuthProvider";
-import React, {useState} from "react";
+import Loading from "../components/Loading"
+import Login from "../pages/login";
+import React, { useState, useEffect } from "react";
+
+
 
 export default function MyApp({ Component, pageProps }) {
-  const [token, setToken] = useState("");
+  const [isLoading, setLoading] = useState(true);
+  const [allowed, setAllowed] = useState(false);
+  const [token, setToken] =useState("")
 
-  return (
-    <AuthContext.Provider
-      value={{
-        token: token,
-        setToken: setToken
-      }}
-    >
-      <Component {...pageProps} />
-    </AuthContext.Provider>
+  useEffect(() => {
+    if (process.browser) {
+      var match = document.cookie.match(
+        new RegExp("(^| )" + "minako" + "=([^;]+)")
+      );
+      if (match) setAllowed(true);
+      if (match) setToken(match[2])
+      setLoading(false)
+    }
+  });
+
+  const ComponentToRender = isLoading ? (
+    Loading
+  ) : allowed ? (
+    Component
+  ) : (
+    Login
   );
+  return <ComponentToRender token={token} {...pageProps} />;
 }

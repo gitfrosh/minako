@@ -191,6 +191,25 @@ app.prepare().then(() => {
     }
   );
 
+  server.get(
+    "/api/post/:id",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      const id = req.params.id;
+      // if (req.session && req.session.authenticated) {
+      try {
+        
+        return res.send(db.get("posts").find({ id: id }))
+      } catch (e) {
+        console.error(e);
+        return res.sendStatus(500);
+      }
+      // } else {
+      //   return res.sendStatus(401);
+      // }
+    }
+  );
+
   server.delete(
     "/api/post/:id",
     passport.authenticate("jwt", { session: false }),
@@ -209,34 +228,6 @@ app.prepare().then(() => {
       // }
     }
   );
-
-  server.get("/", (req, res) => {
-    if (req.user) {
-      return handle(req, res);
-    } else {
-      res.redirect("/login");
-    }
-  });
-
-  server.get("/new", (req, res) => {
-    if (req.user) {
-      return handle(req, res);
-    } else {
-      res.redirect("/login");
-    }
-  });
-
-  server.get("/post/:id", (req, res) => {
-    if (req.user) {
-      return handle(req, res);
-    } else {
-      res.redirect("/login");
-    }
-  });
-
-  server.get("/login", (req, res) => {
-    return handle(req, res);
-  });
 
   server.get("*", (req, res) => {
     return handle(req, res);

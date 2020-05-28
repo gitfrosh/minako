@@ -1,7 +1,41 @@
 import Layout from "./../components/Layout";
 import { fetchPosts } from "../helpers/api";
-import Table from "../components/Table"
-function HomePage({ posts }) {
+import Table from "../components/Table";
+import { useState, useEffect } from "react";
+import Loading from "../components/Loading";
+
+function HomePage({ token }) {
+  const [data, setData] =useState([])
+
+  useEffect(() => {
+      const fetchData = async () => {
+        const result = await fetchPosts(token);
+        setData(result);
+      };
+      fetchData();
+  }, []);
+
+  // const api = ``
+  // console.log(token)
+  // const { data, error } =  useSWR(api, fetcher(url, "GET"))
+  // console.log(data)
+  // if (error) return <div>failed to load</div>
+  // if (!data) return <div>loading...</div>
+
+  // const { status, data, error } = useQuery('posts', fetcher(fakeurl, "GET", token))
+
+  // if (data.length === 0) {
+  //   return <span>Loading...</span>;
+  // }
+
+  // if (status === 'error') {
+  //   return <span>Error: {error.message}</span>
+  // }
+
+  if (data.length < 1) {
+    return <Loading />
+  }
+
   return (
     <>
       <Layout>
@@ -11,7 +45,7 @@ function HomePage({ posts }) {
               + New Post
             </a>
           </p>
-          <Table posts={posts} />
+          <Table posts={data} />
     
         </div>
 
@@ -25,19 +59,6 @@ function HomePage({ posts }) {
     </>
 
   );
-}
-
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries. See the "Technical details" section.
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  const posts = await fetchPosts();
-  return {
-    props: {
-      posts: posts.reverse(),
-    },
-  };
 }
 
 export default HomePage;
