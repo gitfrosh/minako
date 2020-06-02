@@ -31,6 +31,10 @@ export async function requester(url, method, values) {
 
   } catch(e) {
     console.log(`😱 Request failed: ${e}`);
+    return ({
+      success: false,
+      message: "Something went wrong."
+    })
 
   }
 }
@@ -50,8 +54,8 @@ export async function deletePost(id) {
   return await requester(url, "DELETE")
 }
 
-export async function postPost(values) {
-  return await requester("/api/posts", "POST", values)
+export async function postPost(values, token) {
+  return await requester(`/api/posts?secret_token=${token}`, "POST", values)
 }
 
 export async function editPost(id, values) {

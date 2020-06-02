@@ -19,3 +19,14 @@ label {
 input {
     width: 100%;
 }
+
+.error-label {
+    margin-top: -15px;
+    font-style: italic;
+    color: red;
+}
+
+.error-label-editor {
+    font-style: italic;
+    color: red;
+}

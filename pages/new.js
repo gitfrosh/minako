@@ -3,14 +3,14 @@ import Layout from "./../components/Layout";
 import Form from "./../components/Form";
 import Link from "next/link";
 
-function New() {
+function New(token) {
   return (
     <div>
       <MyHead />
       <Layout>
         <section>
         <h2>New post</h2>
-            <Form />
+            <Form token={token} />
         </section>
       </Layout>
       {/* <style jsx>{`
