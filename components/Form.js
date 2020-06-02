@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import { editPost, postPost } from "../helpers/api";
 import { useToasts } from "react-toast-notifications";
+import Router from "next/router";
 
 function todayToMongoISO() {
   return moment(new Date()).format("YYYY-MM-DD[T00:00:00.000Z]");
@@ -19,12 +20,11 @@ async function checkRequired(value) {
   return false;
 }
 
-async function sendToServer(values, { isEditor, id }, token) {
-  console.log("isEd ", isEditor);
-  console.log("id ", id);
+async function sendToServer(values, { isEditor, id }, { token }) {
+  console.log(values)
 
   // prepare for api post
-  const data = {...values}
+  const data = { ...values };
   let formattedDate = moment(values.date).format("YYYY-MM-DD");
   data.date = formattedDate;
   data.updatedAt = todayToMongoISO();
@@ -35,7 +35,9 @@ async function sendToServer(values, { isEditor, id }, token) {
     return response;
   }
   if (isEditor) {
-    editPost(id, data);
+    const response = await editPost(id, data, token);
+    console.log(response);
+    return response;
   }
 }
 
@@ -125,10 +127,9 @@ function CreatedAtField() {
   );
 }
 
-function TextField() {
+function TextField({html}) {
   const {
     setValue,
-
     meta: { error, isTouched, isValidating },
     getInputProps,
   } = useField("html", {
@@ -141,7 +142,7 @@ function TextField() {
 
   return (
     <>
-      <Editor handleChange={handleChange} {...getInputProps()} />
+      <Editor html={html} handleChange={handleChange} {...getInputProps()} />
       {isValidating ? (
         <em>Validating...</em>
       ) : isTouched && error ? (
@@ -174,7 +175,7 @@ function CategoryField() {
 }
 
 function Form({ post, token }) {
-  console.log(token)
+  console.log(token);
   const { addToast } = useToasts();
 
   const defaultValues = useMemo(
@@ -198,15 +199,23 @@ function Form({ post, token }) {
     onSubmit: async (values, instance) => {
       // onSubmit (and everything else in React Form)
       // has async support out-of-the-box
-      const response = await sendToServer(values, {
-        isEditor: !!post,
-        id: (post && post.id) || null,
-      }, token);
+      const isEditor = !!post;
+      const response = await sendToServer(
+        values,
+        {
+          isEditor: isEditor,
+          id: (post && post.id) || null,
+        },
+        token
+      );
       if (!response.success) {
         addToast(response.message, { appearance: "error" });
       } else {
         console.log("Huzzah!");
-        addToast("Added new post.", { appearance: "success" });
+        !isEditor && addToast("Added new post.", { appearance: "success" }) &&       Router.push("/");
+        ;
+        isEditor && addToast("Edited post.", { appearance: "success" });
+
       }
     },
     debugForm: true,
@@ -236,7 +245,7 @@ function Form({ post, token }) {
       </div>
       <div>
         <label>
-          Text: <TextField />
+          Text: <TextField html={post && post.html} />
         </label>
       </div>
 

@@ -7,10 +7,25 @@ import {
   usePagination,
 } from "react-table";
 import Link from "next/link";
+import { deletePost } from "../helpers/api";
+import { useToasts } from "react-toast-notifications";
+import Router from "next/router";
 
-const Table = ({ posts }) => {
-  const onDelete = (id) => {
+const Table = ({ posts, token, fetchPosts }) => {
+  console.log(fetchPosts)
+  const { addToast } = useToasts();
+
+  console.log(token);
+  async function onDelete (id) {
     console.log("fsd f ", id);
+    const response = await deletePost(id, token);
+    console.log(response)
+    if (!response.success) {
+      addToast(response.message, { appearance: "error" });
+    } else {
+      addToast("Deleted post.", { appearance: "success" });
+      fetchPosts()
+    }
   };
 
   const data = React.useMemo(() => posts, []);
@@ -27,8 +42,8 @@ const Table = ({ posts }) => {
         sortType: "basic",
         Cell: (data) => {
           const date = data.row.original.date;
-          return(<center>{date}</center>)
-        }
+          return <center>{date}</center>;
+        },
       },
       {
         Header: () => <center>Category</center>,
@@ -36,30 +51,31 @@ const Table = ({ posts }) => {
         sortType: "basic",
         Cell: (data) => {
           const category = data.row.original.category;
-          return(<center>{category}</center>)
-        }
+          return <center>{category}</center>;
+        },
       },
       {
         id: "actions",
         Header: "",
         Cell: (data) => {
           const id = data.row.original.id;
-          return  <center>
-          <Link
-            prefetch={false}
-            href={`/post/[post]`}
-            as={`/post/${id}`}
-            passHref
-          >
-            <a>edit</a>
-          </Link>{" "}
-          |{" "}
-          <Link href="#">
-            <a onClick={() => onDelete(id)}>delete </a>
-          </Link>
-        </center>
-        }
-         
+          return (
+            <center>
+              <Link
+                prefetch={false}
+                href={`/post/[post]`}
+                as={`/post/${id}`}
+                passHref
+              >
+                <a>edit</a>
+              </Link>{" "}
+              |{" "}
+              <Link href="#">
+                <a onClick={() => onDelete(id)}>delete </a>
+              </Link>
+            </center>
+          );
+        },
       },
     ],
     []

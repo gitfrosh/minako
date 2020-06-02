@@ -1,9 +1,7 @@
 import fetch from "node-fetch";
 
-
-
-export async function requester(url, method, values) {
-  console.dir(values)
+export async function requester(url, method, values, token) {
+  console.dir(values);
   const requestOptions = {
     method: method,
     headers: {
@@ -12,84 +10,60 @@ export async function requester(url, method, values) {
     },
   };
   if (values) {
-    requestOptions.body = JSON.stringify(values)
+    requestOptions.body = JSON.stringify(values);
   }
   try {
-
-  const response = await fetch(url, requestOptions);
-  console.log("👉 Returned data:", response);
-  console.log(response.status)
-  if (response.status > 399) {
-    return ({
-      success: false,
-      message: response.statusText
-    })
-
-  } else {
-    return await response.json();
-  }
-
-  } catch(e) {
+    const response = await fetch(`${url}?secret_token=${token}`, requestOptions);
+    console.log("👉 Returned data:", response);
+    console.log(response.status);
+    if (response.status > 399) {
+      return {
+        success: false,
+        message: response.statusText,
+      };
+    } else {
+      const json = await response.json();
+      console.log(json)
+      return json
+    }
+  } catch (e) {
     console.log(`😱 Request failed: ${e}`);
-    return ({
+    return {
       success: false,
-      message: "Something went wrong."
-    })
-
+      message: "Something went wrong.",
+    };
   }
 }
-
 
 export async function login(values) {
-  return await requester("/api/login", "POST", values)
-}    
-
-export async function logout() {
-  return await requester("/api/logout", "GET")
-
+  return await requester("/api/login", "POST", values);
 }
 
-export async function deletePost(id) {
+export async function logout() {
+  return await requester("/api/logout", "GET");
+}
+
+export async function deletePost(id, token) {
   const url = "/api/post/" + id;
-  return await requester(url, "DELETE")
+  return await requester(url, "DELETE", null, token);
 }
 
 export async function postPost(values, token) {
-  return await requester(`/api/posts?secret_token=${token}`, "POST", values)
+  const url = `/api/posts`;
+  return await requester(url, "POST", values, token);
 }
 
-export async function editPost(id, values) {
+export async function editPost(id, values, token) {
   const url = "/api/post/" + id;
-  return await requester(url, "PUT", values)
+  return await requester(url, "PUT", values, token);
 }
 
 export async function fetchPosts(token) {
-  try {
-    const res = await fetch(`/api/posts?secret_token=${token}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    let posts = await res.json();
-    return posts;
-  } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
-  }
+  const url = `/api/posts`;
+  return await requester(url, "GET", null, token);
 }
 
 export async function fetchPost(id, token) {
-  try {
-    const res = await fetch(`/api/post/${id}?secret_token=${token}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    let posts = await res.json();
-    return posts;
-  } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
-  }
+  const url = `/api/post/${id}`;
+  return await requester(url, "GET", null, token);
 }
-

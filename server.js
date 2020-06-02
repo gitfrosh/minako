@@ -94,7 +94,6 @@ app.prepare().then(() => {
   );
 
   server.post("/api/login", async (req, res) => {
-    console.log("LOGIN")
     passport.authenticate("login", async (err, user, info) => {
       try {
         if (err || !user) {
@@ -110,8 +109,11 @@ app.prepare().then(() => {
           //Send back the token to the user
           return res.json({ token });
         });
-      } catch (error) {
-        return res.send(error);
+      } catch (e) {
+        return res.sendStatus(500).send({
+          success: false,
+          message: "Login failed"
+        });
       }
     })(req, res, next);
   });
@@ -120,13 +122,13 @@ app.prepare().then(() => {
     try {
       req.logout();
       return res.json({
-        success: true
+        success: true,
       });
-
-    } catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
       return res.json({
-        message: "Logout failed"
+        success: false,
+        message: "Logout failed",
       });
     }
   });
@@ -135,7 +137,16 @@ app.prepare().then(() => {
     "/api/posts",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      res.send(db.get("posts"));
+      try {
+        const posts = db.get("posts");
+        res.send(posts);
+      } catch (e) {
+        console.error(e);
+        return res.sendStatus(500).json({
+          success: false,
+          message: e,
+        });
+      }
     }
   );
 
@@ -158,10 +169,15 @@ app.prepare().then(() => {
             updatedAt: req.body.updatedAt,
           })
           .write();
-        return res.sendStatus(201);
+        return res.status(201).json({
+          success: true,
+        });
       } catch (e) {
         console.error(e);
-        return res.sendStatus(500);
+        return res.status(500).json({
+          success: false,
+          message: e,
+        });
       }
 
       // }
@@ -193,10 +209,15 @@ app.prepare().then(() => {
             category: category,
           })
           .write();
-        return res.sendStatus(204);
+        return res.json({
+          success: true,
+        });
       } catch (e) {
         console.error(e);
-        return res.sendStatus(500);
+        return res.status(500).json({
+          success: false,
+          message: e,
+        });
       }
     }
   );
@@ -208,11 +229,14 @@ app.prepare().then(() => {
       const id = req.params.id;
       // if (req.session && req.session.authenticated) {
       try {
-        
-        return res.send(db.get("posts").find({ id: id }))
+        const post = db.get("posts").find({ id: id })
+        return res.send(post);
       } catch (e) {
         console.error(e);
-        return res.sendStatus(500);
+        return res.status(500).json({
+          success: false,
+          message: e,
+        });
       }
       // } else {
       //   return res.sendStatus(401);
@@ -224,14 +248,21 @@ app.prepare().then(() => {
     "/api/post/:id",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
+      console.log("HELLO")
       const id = req.params.id;
       // if (req.session && req.session.authenticated) {
       try {
-        db.get("posts").find({ id: id }).remove().write();
-        return res.sendStatus(204);
+        const response = db.get("posts").remove({ id: id }).write();
+        console.log(response)
+        return res.status(204).json({
+          success: true,
+        });
       } catch (e) {
         console.error(e);
-        return res.sendStatus(500);
+        return res.status(500).json({
+          success: false,
+          message: e,
+        });
       }
       // } else {
       //   return res.sendStatus(401);

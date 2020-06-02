@@ -1,24 +1,28 @@
 import Layout from "../components/Layout";
 import { fetchPosts } from "../helpers/api";
 import Table from "../components/Table";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Loading from "../components/Loading";
 
 function HomePage({ token }) {
-  const [data, setData] =useState([])
-
-  useEffect(() => {
-      const fetchData = async () => {
-        const result = await fetchPosts(token);
-        setData(result);
-      };
-      fetchData();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const fetchData = useCallback(async () => {
+    setLoading(true)
+    const result = await fetchPosts(token);
+    console.log(result)
+    setData(result);
+    setLoading(false)
   }, []);
 
-  if (data.length < 1) {
-    return <Loading />
-  }
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
+  if (loading) {
+    return <Loading />;
+
+  }
   return (
     <>
       <Layout>
@@ -28,19 +32,15 @@ function HomePage({ token }) {
               + New Post
             </a>
           </p>
-          <Table posts={data} />
-    
+          <Table fetchPosts={fetchData} token={token} posts={data} />
         </div>
-
       </Layout>
       <style jsx>{`
-
         #right {
           float: right;
         }
       `}</style>
     </>
-
   );
 }
 
