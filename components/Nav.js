@@ -3,23 +3,6 @@ import { logout } from "../helpers/api";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
 
-// import styled from "styled-components";
-
-// const StyledLink = styled.a`
-//   display: inline-block;
-//   color: #242424;
-//   font-size: 18px;
-//   margin-right: 30px;
-//   padding: 5px;
-//   cursor: pointer;
-//   @media only screen and (max-width: 767px) {
-//     font-size: 15px;
-//   }
-//   @media only screen and (max-width: 480px) {
-//     font-size: 12px;
-//   }
-// `;
-
 function Nav() {
   const { addToast } = useToasts();
 
