@@ -37,7 +37,6 @@ const Layout = (props) => (
           -webkit-font-smoothing: antialiased;
           font-smoothing: antialiased;
           text-align: center;
-          background: lightgray url("/img/21989.jpg") repeat;
           display: table;
         }
         main {
@@ -68,10 +67,12 @@ const Layout = (props) => (
         h1 {
           font-size: 8.6rem;
           margin-bottom: -2rem;
+          color: rgb(17, 75, 95);
         }
         .subtitle {
           font-size: 1.6rem;
           margin-left: 0.8rem;
+          color: rgb(26, 147, 111);
         }
       `}
     </style>

@@ -22,7 +22,7 @@ function Nav() {
       <header>
         <nav role="navigation">
           <div>
-            <h1>minako</h1>
+            <h1><img src="/favicon.ico"/>minako</h1>
             <span className="subtitle">cms made simple</span>
           </div>
           <div className="menu">

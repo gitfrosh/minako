@@ -35,11 +35,13 @@ const Table = ({ posts, token, fetchPosts }) => {
         Header: "Title",
         accessor: "title",
         sortType: "basic",
+        
       },
       {
         Header: () => <center>Date</center>,
         accessor: "date",
         sortType: "basic",
+        width: "200px",
         Cell: (data) => {
           const date = data.row.original.date;
           return <center>{date}</center>;

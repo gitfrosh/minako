@@ -30,3 +30,18 @@ input {
     font-style: italic;
     color: red;
 }
+
+button, .button {
+    background-color: rgb(26, 147, 111);
+    border-color: rgb(26, 147, 111);
+    color: #fff !important;
+}
+
+button:hover, .button:hover {
+    background-color: rgb(17, 75, 95);
+    border-color: rgb(17, 75, 95) 
+}
+
+a, a:hover, a:visited, a:active {
+    color: rgb(26, 147, 111);
+}

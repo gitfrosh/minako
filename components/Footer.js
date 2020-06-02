@@ -1,7 +1,7 @@
 const Footer = () => (
   <>
     <footer>
-        <p>Copyright 2020 minako</p></footer>
+        <p><img width="20" src="/favicon.ico"/> Copyright 2020 minako</p></footer>
     <style jsx>{`
       footer{
         clear: both;
