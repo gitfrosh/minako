@@ -2,6 +2,8 @@ import Link from "next/link";
 import { logout } from "../helpers/api";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 function Nav() {
   const { addToast } = useToasts();
@@ -22,16 +24,14 @@ function Nav() {
       <header>
         <nav role="navigation">
           <div>
+          <a href="/">
             <h1><img src="/favicon.ico"/>minako</h1>
             <span className="subtitle">cms made simple</span>
+            </a>
           </div>
           <div className="menu">
-            <a className="button" href="/">
-              Home
-            </a>{" "}
             <a onClick={(e) => logoutNow(e)} className="button" href="/">
-              Logout
-            </a>
+            <FontAwesomeIcon icon={faSignOutAlt} />            </a>
           </div>{" "}
         </nav>
       </header>

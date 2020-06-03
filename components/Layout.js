@@ -30,10 +30,9 @@ const Layout = (props) => (
 
         body,
         __next {
-          font-size: 13px;
           height: 100vh;
           width: 100%;
-          font-family: open sans, sans-serif;
+          font-family: Manrope, open sans, sans-serif;
           -webkit-font-smoothing: antialiased;
           font-smoothing: antialiased;
           text-align: center;
@@ -73,6 +72,36 @@ const Layout = (props) => (
           font-size: 1.6rem;
           margin-left: 0.8rem;
           color: rgb(26, 147, 111);
+        }
+
+        .table-cell {
+          max-width: 600px
+        }
+
+        .table-tag {
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          color: rgba(0,0,0,.65);
+          font-size: 14px;
+          font-variant: tabular-nums;
+          line-height: 1.5715;
+          list-style: none;
+          -webkit-font-feature-settings: 'tnum';
+          font-feature-settings: 'tnum';
+          display: inline-block;
+          height: auto;
+          padding: 0 7px;
+          line-height: 20px;
+          white-space: nowrap;
+          background: #fafafa;
+          border: 1px solid #d9d9d9;
+          border-radius: 2px;
+          cursor: default;
+          opacity: 1;
+          -webkit-transition: all .3s cubic-bezier(.78,.14,.15,.86);
+          transition: all .3s cubic-bezier(.78,.14,.15,.86);
         }
       `}
     </style>

@@ -35,6 +35,7 @@ button, .button {
     background-color: rgb(26, 147, 111);
     border-color: rgb(26, 147, 111);
     color: #fff !important;
+    margin-bottom: 0px;
 }
 
 button:hover, .button:hover {

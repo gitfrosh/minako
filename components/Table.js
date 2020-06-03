@@ -10,23 +10,31 @@ import Link from "next/link";
 import { deletePost } from "../helpers/api";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {faSortUp} from "@fortawesome/free-solid-svg-icons";
+import {faSortDown} from "@fortawesome/free-solid-svg-icons";
+import {faSort} from "@fortawesome/free-solid-svg-icons";
+import {faChevronCircleRight} from "@fortawesome/free-solid-svg-icons";
+import {faChevronCircleLeft} from "@fortawesome/free-solid-svg-icons";
 
 const Table = ({ posts, token, fetchPosts }) => {
-  console.log(fetchPosts)
+  console.log(fetchPosts);
   const { addToast } = useToasts();
 
   console.log(token);
-  async function onDelete (id) {
+  async function onDelete(id) {
     console.log("fsd f ", id);
     const response = await deletePost(id, token);
-    console.log(response)
+    console.log(response);
     if (!response.success) {
       addToast(response.message, { appearance: "error" });
     } else {
       addToast("Deleted post.", { appearance: "success" });
-      fetchPosts()
+      fetchPosts();
     }
-  };
+  }
 
   const data = React.useMemo(() => posts, []);
   const columns = React.useMemo(
@@ -35,16 +43,35 @@ const Table = ({ posts, token, fetchPosts }) => {
         Header: "Title",
         accessor: "title",
         sortType: "basic",
-        
+        Cell: (data) => {
+          const title = data.row.original.title;
+          return <div className="table-cell">{title}</div>;
+        },
       },
       {
         Header: () => <center>Date</center>,
         accessor: "date",
         sortType: "basic",
-        width: "200px",
         Cell: (data) => {
           const date = data.row.original.date;
-          return <center>{date}</center>;
+          return (
+            <center>
+              <span className="table-tag">{date}</span>
+            </center>
+          );
+        },
+      },
+      {
+        Header: () => <center>Created At</center>,
+        accessor: "createdAt",
+        sortType: "basic",
+        Cell: (data) => {
+          const createdAt = data.row.original.createdAt;
+          return (
+            <center>
+              <span className="table-tag">{createdAt.slice(0, -14)}</span>
+            </center>
+          );
         },
       },
       {
@@ -53,7 +80,11 @@ const Table = ({ posts, token, fetchPosts }) => {
         sortType: "basic",
         Cell: (data) => {
           const category = data.row.original.category;
-          return <center>{category}</center>;
+          return (
+            <center>
+              <span className="table-tag">{category}</span>
+            </center>
+          );
         },
       },
       {
@@ -69,11 +100,29 @@ const Table = ({ posts, token, fetchPosts }) => {
                 as={`/post/${id}`}
                 passHref
               >
-                <a>edit</a>
-              </Link>{" "}
-              |{" "}
+                <a>
+                  <button>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                </a>
+              </Link>
+            </center>
+          );
+        },
+      },
+      {
+        id: "actions-2",
+        Header: "",
+        Cell: (data) => {
+          const id = data.row.original.id;
+          return (
+            <center>
               <Link href="#">
-                <a onClick={() => onDelete(id)}>delete </a>
+                <a onClick={() => onDelete(id)}>
+                  <button>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </button>
+                </a>
               </Link>
             </center>
           );
@@ -119,13 +168,13 @@ const Table = ({ posts, token, fetchPosts }) => {
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
-                  <span>
+                  <center>
                     {column.isSorted
                       ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
+                        ? <FontAwesomeIcon icon={faSortDown} />
+                        : <FontAwesomeIcon icon={faSortUp} />
                       : ""}
-                  </span>
+                  </center>
                 </th>
               ))}
             </tr>
@@ -148,19 +197,21 @@ const Table = ({ posts, token, fetchPosts }) => {
       </table>
       <div>
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Previous Page
+        <FontAwesomeIcon icon={faChevronCircleLeft} />
         </button>
         {"  "}
         <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Next Page
+        <FontAwesomeIcon icon={faChevronCircleRight} />
+
         </button>
-        <div>
+        {/* <div>
           Page{" "}
           <em>
             {pageIndex + 1} of {pageOptions.length}
           </em>
-        </div>
+        </div> */}
       </div>
+      <style jsx>{``}</style>
     </>
   );
 };
