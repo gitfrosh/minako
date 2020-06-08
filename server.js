@@ -138,6 +138,21 @@ app.prepare().then(() => {
     }
   );
 
+  server.get("/api/published_posts", (req, res) => {
+    // this endpoint is public
+    try {
+      const posts = db.get("posts");
+      const publishedPosts = posts.filter(post => post.status === "published")
+      res.send(publishedPosts);
+    } catch (e) {
+      console.error(e);
+      return res.sendStatus(500).json({
+        success: false,
+        message: e,
+      });
+    }
+  });
+
   server.post(
     "/api/posts",
     passport.authenticate("jwt", { session: false }),
