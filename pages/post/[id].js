@@ -1,7 +1,7 @@
 import MyHead from "../../components/MyHead";
 import Layout from "../../components/Layout";
 import { fetchPost } from "../../helpers/api";
-import Form from "../../components/Form";
+import PostForm from "../../components/PostForm";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import { useRouter } from "next/router";
@@ -9,13 +9,9 @@ import { useRouter } from "next/router";
 const Post = (token) => {
   const [data, setData] = useState([]);
   const router = useRouter();
-  console.log(router)
   const { id } = router.query;
-  
 
   useEffect(() => {
-    console.log(id, token)
-  
     const fetchData = async () => {
       const result = await fetchPost(id, token.token);
       setData(result);
@@ -33,7 +29,7 @@ const Post = (token) => {
       <Layout>
         <section>
           <h2>Edit post</h2>
-          <Form token={token} post={data} />
+          <PostForm token={token} post={data} />
         </section>
       </Layout>
 

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { logout } from "../helpers/api";
 import { useToasts } from "react-toast-notifications";
 import Router from "next/router";

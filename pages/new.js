@@ -1,23 +1,18 @@
 import MyHead from "./../components/MyHead";
 import Layout from "./../components/Layout";
-import Form from "./../components/Form";
-import Link from "next/link";
+import PostForm from "./../components/PostForm";
 
 function New(token) {
   return (
-    <div>
+    <>
       <MyHead />
       <Layout>
         <section>
         <h2>New post</h2>
-            <Form token={token} />
+            <PostForm token={token} />
         </section>
       </Layout>
-      {/* <style jsx>{`
-   
-    
-    `}</style> */}
-    </div>
+    </>
   );
 }
 export default New;

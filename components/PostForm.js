@@ -21,9 +21,6 @@ async function checkRequired(value) {
 }
 
 async function sendToServer(values, { isEditor, id }, { token }) {
-  console.log(values)
-
-  // prepare for api post
   const data = { ...values };
   let formattedDate = moment(values.date).format("YYYY-MM-DD");
   data.date = formattedDate;
@@ -31,12 +28,10 @@ async function sendToServer(values, { isEditor, id }, { token }) {
 
   if (!isEditor) {
     const response = await postPost(data, token);
-    console.log(response);
     return response;
   }
   if (isEditor) {
     const response = await editPost(id, data, token);
-    console.log(response);
     return response;
   }
 }
@@ -66,7 +61,6 @@ function DateField() {
     value = [],
     setValue,
     meta: { error, isTouched, isValidating },
-    getInputProps,
   } = useField("date", {
     validate: checkRequired,
   });
@@ -158,8 +152,6 @@ function CategoryField() {
     getInputProps,
   } = useField("category", {
     validate: checkRequired,
-
-    //   validate: validateAddressStreet
   });
 
   return (
@@ -174,10 +166,8 @@ function CategoryField() {
   );
 }
 
-function Form({ post, token }) {
-  console.log(token);
+function PostForm({ post, token }) {
   const { addToast } = useToasts();
-
   const defaultValues = useMemo(
     () => ({
       title: post && post.title,
@@ -193,12 +183,9 @@ function Form({ post, token }) {
   const {
     Form,
     meta: { isSubmitting, canSubmit },
-    reset,
   } = useForm({
     defaultValues,
     onSubmit: async (values, instance) => {
-      // onSubmit (and everything else in React Form)
-      // has async support out-of-the-box
       const isEditor = !!post;
       const response = await sendToServer(
         values,
@@ -211,14 +198,13 @@ function Form({ post, token }) {
       if (!response.success) {
         addToast(response.message, { appearance: "error" });
       } else {
-        console.log("Huzzah!");
         !isEditor && addToast("Added new post.", { appearance: "success" }) &&       Router.push("/");
         ;
         isEditor && addToast("Edited post.", { appearance: "success" });
 
       }
     },
-    debugForm: true,
+    debugForm: false,
   });
 
   return (
@@ -261,10 +247,6 @@ function Form({ post, token }) {
         <em>{isSubmitting ? "Submitting..." : null}</em>
       </div>
     </Form>
-    /* <style jsx>{`
-     
-      
-      `}</style> */
   );
 }
-export default Form;
+export default PostForm;

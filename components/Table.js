@@ -9,25 +9,18 @@ import {
 import Link from "next/link";
 import { deletePost } from "../helpers/api";
 import { useToasts } from "react-toast-notifications";
-import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faSortUp } from "@fortawesome/free-solid-svg-icons";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
-import { faSort } from "@fortawesome/free-solid-svg-icons";
 import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Table = ({ posts, token, fetchPosts }) => {
-  console.log(fetchPosts);
   const { addToast } = useToasts();
-
-  console.log(token);
   async function onDelete(id) {
-    console.log("fsd f ", id);
     const response = await deletePost(id, token);
-    console.log(response);
     if (!response.success) {
       addToast(response.message, { appearance: "error" });
     } else {
@@ -135,15 +128,11 @@ const Table = ({ posts, token, fetchPosts }) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
-    pageOptions,
     page,
     state: { pageIndex, pageSize },
-    gotoPage,
     previousPage,
     nextPage,
-    setPageSize,
     canPreviousPage,
     canNextPage,
   } = useTable(
@@ -215,12 +204,6 @@ const Table = ({ posts, token, fetchPosts }) => {
         <button onClick={() => nextPage()} disabled={!canNextPage}>
           <FontAwesomeIcon icon={faChevronCircleRight} />
         </button>
-        {/* <div>
-          Page{" "}
-          <em>
-            {pageIndex + 1} of {pageOptions.length}
-          </em>
-        </div> */}
       </div>
       <style jsx>{``}</style>
     </>

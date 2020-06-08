@@ -5,7 +5,6 @@ import { useState } from "react";
 const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
   ssr: false,
 });
-// Initialize a markdown parser
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 const Editor = ({handleChange, html}) => {

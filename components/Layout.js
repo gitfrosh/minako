@@ -5,7 +5,6 @@ import MyHead from "./../components/MyHead";
 const Layout = (props) => (
   <>
     <MyHead />
-
     <main>
       <div className="wrapper">
         <Nav />
@@ -17,7 +16,6 @@ const Layout = (props) => (
           </div>
         </div>
         <Footer />
-
       </div>
     </main>
     <style jsx global>
@@ -75,7 +73,7 @@ const Layout = (props) => (
         }
 
         .table-cell {
-          max-width: 600px
+          max-width: 600px;
         }
 
         .table-tag {
@@ -83,13 +81,13 @@ const Layout = (props) => (
           box-sizing: border-box;
           margin: 0;
           padding: 0;
-          color: rgba(0,0,0,.65);
+          color: rgba(0, 0, 0, 0.65);
           font-size: 14px;
           font-variant: tabular-nums;
           line-height: 1.5715;
           list-style: none;
-          -webkit-font-feature-settings: 'tnum';
-          font-feature-settings: 'tnum';
+          -webkit-font-feature-settings: "tnum";
+          font-feature-settings: "tnum";
           display: inline-block;
           height: auto;
           padding: 0 7px;
@@ -100,8 +98,67 @@ const Layout = (props) => (
           border-radius: 2px;
           cursor: default;
           opacity: 1;
-          -webkit-transition: all .3s cubic-bezier(.78,.14,.15,.86);
-          transition: all .3s cubic-bezier(.78,.14,.15,.86);
+          -webkit-transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+          transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+        }
+
+        .rc-md-navigation .button,
+        .tool-bar .button {
+          background-color: unset;
+          border: unset;
+          border-radius: unset;
+          font-size: unset;
+          font-weight: unset;
+          padding: unset;
+          text-decoration: unset;
+          letter-spacing: unset;
+          text-transform: unset;
+          white-space: unset;
+        }
+
+        label {
+          font-weight: unset;
+        }
+
+        input {
+          width: 100%;
+        }
+
+        .error-label {
+          margin-top: -15px;
+          font-style: italic;
+          color: red;
+        }
+
+        .error-label-editor {
+          font-style: italic;
+          color: red;
+        }
+
+        button,
+        .button,
+        button[disabled]:hover {
+          background-color: #fff;
+          border-color: rgb(26, 147, 111);
+          color: #000 !important;
+          margin-bottom: 0px;
+        }
+
+        button:hover,
+        .button:hover {
+          background-color: #fafafa;
+          border-color: rgb(17, 75, 95);
+        }
+
+        textarea:focus, input[type='text']:focus{
+          border-color: rgb(26,147,111);
+      }
+
+        a,
+        a:hover,
+        a:visited,
+        a:active {
+          color: rgb(26, 147, 111);
         }
       `}
     </style>

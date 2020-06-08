@@ -10,7 +10,6 @@ function HomePage({ token }) {
   const fetchData = useCallback(async () => {
     setLoading(true)
     const result = await fetchPosts(token);
-    console.log(result)
     setData(result);
     setLoading(false)
   }, []);

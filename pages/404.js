@@ -11,8 +11,6 @@ export default function Page() {
           .error {
             text-align: center
           }
-        
-          
         `}
       </style>
     </>

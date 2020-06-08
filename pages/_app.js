@@ -1,7 +1,6 @@
 import "milligram/dist/milligram.min.css";
 import "react-markdown-editor-lite/lib/index.css";
 import "react-datepicker/dist/react-datepicker.css";
-import "../helpers/styles.css";
 import Loading from "../components/Loading";
 import Login from "../pages/login";
 import React, { useState, useEffect } from "react";

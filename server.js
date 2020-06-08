@@ -8,11 +8,10 @@ const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const JWTstrategy = require("passport-jwt").Strategy;
 const jwt = require("jsonwebtoken");
-
-//We use this to extract the JWT sent by the user
 const ExtractJWT = require("passport-jwt").ExtractJwt;
-require("dotenv").config();
 const next = require("next");
+
+require("dotenv").config();
 
 const secret = process.env.secret || "top_secret";
 const minako_password = process.env.password || "password";
@@ -25,9 +24,6 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
-
-  // Use application-level middleware for common functionality, including
-  // logging, parsing, and session handling.
   server.use(require("body-parser").json());
   server.use(require("body-parser").urlencoded({ extended: false }));
 
@@ -46,14 +42,11 @@ app.prepare().then(() => {
   passport.use(
     new JWTstrategy(
       {
-        //secret we used to sign our JWT
         secretOrKey: secret,
-        //we expect the user to send the token as a query parameter with the name 'secret_token'
         jwtFromRequest: ExtractJWT.fromUrlQueryParameter("secret_token"),
       },
       async (token, done) => {
         try {
-          //Pass the user details to the next middleware
           return done(null, token.user);
         } catch (error) {
           done(error);
@@ -80,7 +73,6 @@ app.prepare().then(() => {
           return done(null, false, { message: "Incorrect password." });
         }
 
-        //Send the user information to the next middleware
         return done(
           null,
           {
@@ -101,18 +93,14 @@ app.prepare().then(() => {
         }
         req.login(user, { session: false }, async (error) => {
           if (error) return res.send(error);
-          //We don't want to store the sensitive information such as the
-          //user password in the token so we pick only the email and id
           const body = { id: user.id, username: user.username };
-          //Sign the JWT token and populate the payload with the user email and id
           const token = jwt.sign({ user: body }, secret);
-          //Send back the token to the user
           return res.json({ token });
         });
       } catch (e) {
         return res.sendStatus(500).send({
           success: false,
-          message: "Login failed"
+          message: "Login failed",
         });
       }
     })(req, res, next);
@@ -154,14 +142,13 @@ app.prepare().then(() => {
     "/api/posts",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      console.log("body", req.body);
-      // if (req.session && req.session.authenticated) {
       try {
         db.get("posts")
           .push({
             id: uuid.v1(),
             html: req.body.html,
             date: req.body.date,
+            status: req.body.draft,
             slug: req.body.slug,
             category: req.body.category,
             title: req.body.title,
@@ -179,8 +166,6 @@ app.prepare().then(() => {
           message: e,
         });
       }
-
-      // }
     }
   );
 
@@ -227,9 +212,8 @@ app.prepare().then(() => {
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       const id = req.params.id;
-      // if (req.session && req.session.authenticated) {
       try {
-        const post = db.get("posts").find({ id: id })
+        const post = db.get("posts").find({ id: id });
         return res.send(post);
       } catch (e) {
         console.error(e);
@@ -238,9 +222,6 @@ app.prepare().then(() => {
           message: e,
         });
       }
-      // } else {
-      //   return res.sendStatus(401);
-      // }
     }
   );
 
@@ -248,13 +229,11 @@ app.prepare().then(() => {
     "/api/post/:id",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      console.log("HELLO")
       const id = req.params.id;
-      // if (req.session && req.session.authenticated) {
       try {
         const response = db.get("posts").remove({ id: id }).write();
-        console.log(response)
-        return res.status(204).json({
+        console.log(response);
+        return res.json({
           success: true,
         });
       } catch (e) {
@@ -264,9 +243,6 @@ app.prepare().then(() => {
           message: e,
         });
       }
-      // } else {
-      //   return res.sendStatus(401);
-      // }
     }
   );
 
@@ -274,11 +250,11 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  //Handle errors
-  server.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.json({ error: err });
-  });
+  // //Handle errors
+  // server.use(function (err, req, res, next) {
+  //   res.status(err.status || 500);
+  //   res.json({ error: err });
+  // });
 
   server.listen(process.env.CMS_PORT || 1340);
 });

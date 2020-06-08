@@ -1,7 +1,6 @@
 import fetch from "node-fetch";
 
 export async function requester(url, method, values, token) {
-  console.dir(values);
   const requestOptions = {
     method: method,
     headers: {
@@ -13,21 +12,20 @@ export async function requester(url, method, values, token) {
     requestOptions.body = JSON.stringify(values);
   }
   try {
-    const response = await fetch(`${url}?secret_token=${token}`, requestOptions);
-    console.log("👉 Returned data:", response);
-    console.log(response.status);
+    const response = await fetch(`${url}?secret_token=${token}`, requestOptions);  
     if (response.status > 399) {
       return {
         success: false,
         message: response.statusText,
       };
     } else {
+      console.log(response)
+
       const json = await response.json();
       console.log(json)
       return json
     }
   } catch (e) {
-    console.log(`😱 Request failed: ${e}`);
     return {
       success: false,
       message: "Something went wrong.",

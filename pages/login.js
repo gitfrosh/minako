@@ -7,9 +7,7 @@ function UsernameField() {
   const {
     meta: { error, isTouched, isValidating },
     getInputProps,
-  } = useField("username", {
-    //   validate: validateAddressStreet
-  });
+  } = useField("username", {});
 
   return (
     <>
@@ -27,9 +25,7 @@ function PasswordField() {
   const {
     meta: { error, isTouched, isValidating },
     getInputProps,
-  } = useField("password", {
-    //   validate: validateAddressStreet
-  });
+  } = useField("password", {});
 
   return (
     <>
@@ -51,12 +47,9 @@ function Login() {
     meta: { isSubmitting, canSubmit },
   } = useForm({
     onSubmit: async (values, instance) => {
-      // onSubmit (and everything else in React Form)
-      // has async support out-of-the-box
       await sendToServer(values);
-      console.log("Huzzah!");
     },
-    debugForm: true,
+    debugForm: false,
   });
 
   async function setCookie(name, value, days) {
@@ -81,29 +74,82 @@ function Login() {
   }
 
   return (
-    <div>
-      <Form>
-        <div>
-          <label>
-            Username: <UsernameField />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password: <PasswordField />
-          </label>
-        </div>
-        <div>
-          <button type="submit" disabled={!canSubmit}>
-            Submit
-          </button>
-        </div>
+    <>
+      <div className="log-form">
+        <center>
+          <h1>
+            <img src="/favicon.ico" />
+            minako
+          </h1>
+        </center>
+        <Form>
+          <div>
+            <label>
+              Username: <UsernameField />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password: <PasswordField />
+            </label>
+          </div>
+          <div>
+            <button type="submit" disabled={!canSubmit}>
+              Submit
+            </button>
+          </div>
 
-        <div>
-          <em>{isSubmitting ? "Submitting..." : null}</em>
-        </div>
-      </Form>
-    </div>
+          <div>
+            <em>{isSubmitting ? "Submitting..." : null}</em>
+          </div>
+        </Form>
+      </div>
+      <style jsx>{`
+        h1 {
+          padding: 4rem 4rem 0.5rem 4rem;
+        }
+        .log-form {
+          width: 40%;
+          min-width: 320px;
+          max-width: 475px;
+          background: #fff;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+        }
+        
+        button,
+        .button,
+        button[disabled]:hover {
+          background-color: #fff;
+          border-color: rgb(26, 147, 111);
+          color: #000 !important;
+          margin-bottom: 0px;
+        }
+
+        button:hover,
+        .button:hover {
+          background-color: #fafafa;
+          border-color: rgb(17, 75, 95);
+        }
+
+        input[type="text"]:focus {
+          border-color: rgb(26, 147, 111) !important;
+        }
+
+        form {
+          display: block;
+          width: 100%;
+          padding: 2em;
+        }
+      `}</style>
+    </>
   );
 }
 
