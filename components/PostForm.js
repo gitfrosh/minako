@@ -121,7 +121,7 @@ function CreatedAtField() {
   );
 }
 
-function TextField({html}) {
+function TextField({ html }) {
   const {
     setValue,
     meta: { error, isTouched, isValidating },
@@ -166,13 +166,47 @@ function CategoryField() {
   );
 }
 
+function StatusField() {
+  const {
+    value= [],
+    setValue,
+    meta: { error, isTouched, isValidating },
+    // getInputProps,
+  } = useField("status", {
+    validate: checkRequired,
+  });
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  return (
+    <>
+      <select value={value} onChange={handleChange}>
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+      </select>{" "}
+      {isValidating ? (
+        <em>Validating...</em>
+      ) : isTouched && error ? (
+        errorLabel(error)
+      ) : null}
+    </>
+  );
+}
+
+{
+  /* */
+}
+
 function PostForm({ post, token }) {
   const { addToast } = useToasts();
   const defaultValues = useMemo(
     () => ({
-      title: post && post.title,
-      slug: post && post.slug,
-      category: post && post.category,
+      title: post && post.title || "",
+      slug: post && post.slug || "",
+      status: post && post.status || "final",
+      category: post && post.category || "",
       date: (post && new Date(post.date)) || new Date(),
       createdAt: (post && post.createdAt) || todayToMongoISO(),
       html: post && post.html,
@@ -198,10 +232,10 @@ function PostForm({ post, token }) {
       if (!response.success) {
         addToast(response.message, { appearance: "error" });
       } else {
-        !isEditor && addToast("Added new post.", { appearance: "success" }) &&       Router.push("/");
-        ;
+        !isEditor &&
+          addToast("Added new post.", { appearance: "success" }) &&
+          Router.push("/");
         isEditor && addToast("Edited post.", { appearance: "success" });
-
       }
     },
     debugForm: false,
@@ -222,6 +256,11 @@ function PostForm({ post, token }) {
       <div>
         <label>
           Category: <CategoryField />
+        </label>
+      </div>
+      <div>
+        <label>
+          Status: <StatusField />
         </label>
       </div>
       <div>

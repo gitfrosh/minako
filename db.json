@@ -191,6 +191,17 @@
       "updatedAt": "2020-04-11T18:55:38.218Z",
       "__v": 0,
       "id": "5e9212aa3362d2001025ab22"
+    },
+    {
+      "id": "2f865b80-a9c4-11ea-bd77-996339d7f37e",
+      "html": "asdsfsdf",
+      "date": "2020-06-08",
+      "slug": "asd",
+      "category": "asd",
+      "title": "ssasad",
+      "createdAt": "2020-06-08T00:00:00.000Z",
+      "updatedAt": "2020-06-08T00:00:00.000Z",
+      "status": "published"
     }
   ]
 }

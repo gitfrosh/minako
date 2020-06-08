@@ -148,7 +148,7 @@ app.prepare().then(() => {
             id: uuid.v1(),
             html: req.body.html,
             date: req.body.date,
-            status: req.body.draft,
+            status: req.body.status,
             slug: req.body.slug,
             category: req.body.category,
             title: req.body.title,
@@ -177,6 +177,7 @@ app.prepare().then(() => {
         const id = req.params.id;
         const html = req.body.html;
         const date = req.body.date;
+        const status = req.body.status;
         const slug = req.body.slug;
         const title = req.body.title;
         const category = req.body.category;
@@ -187,6 +188,7 @@ app.prepare().then(() => {
           .assign({
             html: html,
             date: date,
+            status: status,
             slug: slug,
             title: title,
             createdAt: createdAt,

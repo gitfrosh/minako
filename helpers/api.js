@@ -19,10 +19,7 @@ export async function requester(url, method, values, token) {
         message: response.statusText,
       };
     } else {
-      console.log(response)
-
       const json = await response.json();
-      console.log(json)
       return json
     }
   } catch (e) {
