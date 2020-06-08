@@ -142,7 +142,9 @@ app.prepare().then(() => {
     // this endpoint is public
     try {
       const posts = db.get("posts");
-      const publishedPosts = posts.filter(post => post.status === "published")
+      const publishedPosts = posts.filter(
+        (post) => post.status === "published"
+      );
       res.send(publishedPosts);
     } catch (e) {
       console.error(e);
@@ -223,6 +225,28 @@ app.prepare().then(() => {
       }
     }
   );
+
+  server.get("/api/published_post/:id", (req, res) => {
+    // this endpoint is public
+    const id = req.params.id;
+    try {
+      const post = db.get("posts").find({ id: id });
+      if (post.status === "published") {
+        return res.send(post);
+      } else {
+        return res.status(403).json({
+          success: false,
+          message: "Forbidden",
+        });
+      }
+    } catch (e) {
+      console.error(e);
+      return res.status(500).json({
+        success: false,
+        message: e,
+      });
+    }
+  });
 
   server.get(
     "/api/post/:id",
