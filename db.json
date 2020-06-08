@@ -10,7 +10,8 @@
       "createdAt": "2020-04-09T17:47:27.676Z",
       "updatedAt": "2020-04-18T18:08:04.531Z",
       "__v": 0,
-      "id": "5e8f5fafa449db00108cb2cb"
+      "id": "5e8f5fafa449db00108cb2cb",
+      "status": "published"
     },
     {
       "category": "paper",
@@ -22,7 +23,8 @@
       "createdAt": "2020-04-09T18:09:51.522Z",
       "updatedAt": "2020-04-18T18:07:58.333Z",
       "__v": 0,
-      "id": "5e8f64efa449db00108cb2ce"
+      "id": "5e8f64efa449db00108cb2ce",
+      "status": "published"
     },
     {
       "category": "paper",
@@ -34,7 +36,8 @@
       "createdAt": "2020-04-11T08:25:15.736Z",
       "updatedAt": "2020-04-11T08:25:15.736Z",
       "__v": 0,
-      "id": "5e917eebde6c310010be67be"
+      "id": "5e917eebde6c310010be67be",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -46,7 +49,8 @@
       "createdAt": "2020-04-11T08:27:57.792Z",
       "updatedAt": "2020-04-11T08:37:05.385Z",
       "__v": 0,
-      "id": "5e917f8dde6c310010be67bf"
+      "id": "5e917f8dde6c310010be67bf",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -58,7 +62,8 @@
       "updatedAt": "2020-04-11T08:55:12.356Z",
       "__v": 0,
       "slug": "mit-dem-terminal-arbeiten-und-python-installieren",
-      "id": "5e918281de6c310010be67c2"
+      "id": "5e918281de6c310010be67c2",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -70,7 +75,8 @@
       "createdAt": "2020-04-11T08:56:51.093Z",
       "updatedAt": "2020-04-11T08:56:51.093Z",
       "__v": 0,
-      "id": "5e918653de6c310010be67c7"
+      "id": "5e918653de6c310010be67c7",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -82,7 +88,8 @@
       "createdAt": "2020-04-11T08:59:20.135Z",
       "updatedAt": "2020-05-04T18:16:13.052Z",
       "__v": 0,
-      "id": "5e9186e8de6c310010be67c8"
+      "id": "5e9186e8de6c310010be67c8",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -94,7 +101,8 @@
       "createdAt": "2020-04-11T18:04:27.900Z",
       "updatedAt": "2020-05-03T09:37:33.520Z",
       "__v": 0,
-      "id": "5e9206ab3362d2001025ab19"
+      "id": "5e9206ab3362d2001025ab19",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -106,7 +114,8 @@
       "createdAt": "2020-04-11T18:19:25.892Z",
       "updatedAt": "2020-05-04T18:12:38.773Z",
       "__v": 0,
-      "id": "5e920a2d3362d2001025ab1a"
+      "id": "5e920a2d3362d2001025ab1a",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -118,7 +127,8 @@
       "createdAt": "2020-04-11T18:32:16.249Z",
       "updatedAt": "2020-05-05T21:29:05.746Z",
       "__v": 0,
-      "id": "5e920d303362d2001025ab1c"
+      "id": "5e920d303362d2001025ab1c",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -130,7 +140,8 @@
       "updatedAt": "2020-05-03T09:47:25.879Z",
       "__v": 0,
       "date": "2019-04-20",
-      "id": "5e920f1c3362d2001025ab1d"
+      "id": "5e920f1c3362d2001025ab1d",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -142,7 +153,8 @@
       "createdAt": "2020-04-11T18:43:58.970Z",
       "updatedAt": "2020-05-03T09:44:44.902Z",
       "__v": 0,
-      "id": "5e920fee3362d2001025ab1e"
+      "id": "5e920fee3362d2001025ab1e",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -154,7 +166,8 @@
       "__v": 0,
       "slug": "express-js-statische-website",
       "date": "2019-06-18",
-      "id": "5e9210833362d2001025ab1f"
+      "id": "5e9210833362d2001025ab1f",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -166,7 +179,8 @@
       "createdAt": "2020-04-11T18:50:04.604Z",
       "updatedAt": "2020-04-11T20:45:45.333Z",
       "__v": 0,
-      "id": "5e92115c3362d2001025ab20"
+      "id": "5e92115c3362d2001025ab20",
+      "status": "published"
     },
     {
       "category": "tutorial",
@@ -178,7 +192,8 @@
       "createdAt": "2020-04-11T18:53:09.628Z",
       "updatedAt": "2020-05-04T18:27:35.342Z",
       "__v": 0,
-      "id": "5e9212153362d2001025ab21"
+      "id": "5e9212153362d2001025ab21",
+      "status": "published"
     },
     {
       "category": "misc",
@@ -190,7 +205,8 @@
       "createdAt": "2020-04-11T18:55:38.218Z",
       "updatedAt": "2020-04-11T18:55:38.218Z",
       "__v": 0,
-      "id": "5e9212aa3362d2001025ab22"
+      "id": "5e9212aa3362d2001025ab22",
+      "status": "published"
     },
     {
       "id": "2f865b80-a9c4-11ea-bd77-996339d7f37e",
@@ -202,6 +218,17 @@
       "createdAt": "2020-06-08T00:00:00.000Z",
       "updatedAt": "2020-06-08T00:00:00.000Z",
       "status": "published"
+    },
+    {
+      "id": "99f14260-a9c8-11ea-9c3a-992a159339fd",
+      "html": "sdfdsfdsf",
+      "date": "2020-06-08",
+      "status": "draft",
+      "slug": "lmk,ö.-",
+      "category": "öö",
+      "title": "dsfsf",
+      "createdAt": "2020-06-08T00:00:00.000Z",
+      "updatedAt": "2020-06-08T00:00:00.000Z"
     }
   ]
 }

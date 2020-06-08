@@ -86,7 +86,7 @@ function SlugField() {
     meta: { error, isTouched, isValidating },
     getInputProps,
   } = useField("slug", {
-    validate: checkRequired,
+    // validate: checkRequired,
   });
 
   return (
@@ -151,7 +151,7 @@ function CategoryField() {
     meta: { error, isTouched, isValidating },
     getInputProps,
   } = useField("category", {
-    validate: checkRequired,
+    // validate: checkRequired,
   });
 
   return (
@@ -245,7 +245,7 @@ function PostForm({ post, token }) {
     <Form>
       <div>
         <label>
-          Title: <TitleField />
+          * Title: <TitleField />
         </label>
       </div>
       <div>
@@ -260,17 +260,17 @@ function PostForm({ post, token }) {
       </div>
       <div>
         <label>
-          Status: <StatusField />
+          * Status: <StatusField />
         </label>
       </div>
       <div>
         <label>
-          Date: <DateField />
+          * Date: <DateField />
         </label>
       </div>
       <div>
         <label>
-          Text: <TextField html={post && post.html} />
+          * Text: <TextField html={post && post.html} />
         </label>
       </div>
 

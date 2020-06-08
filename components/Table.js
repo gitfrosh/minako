@@ -68,6 +68,19 @@ const Table = ({ posts, token, fetchPosts }) => {
         },
       },
       {
+        Header: () => <center>Status</center>,
+        accessor: "status",
+        sortType: "basic",
+        Cell: (data) => {
+          const status = data.row.original.status;
+          return (
+            <center>
+              <span className="table-tag">{status}</span>
+            </center>
+          );
+        },
+      },
+      {
         Header: () => <center>Category</center>,
         accessor: "category",
         sortType: "basic",
