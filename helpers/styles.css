@@ -31,15 +31,15 @@ input {
     color: red;
 }
 
-button, .button {
-    background-color: rgb(26, 147, 111);
+button, .button, button[disabled]:hover {
+    background-color: #fff;
     border-color: rgb(26, 147, 111);
-    color: #fff !important;
+    color: #000 !important;
     margin-bottom: 0px;
 }
 
 button:hover, .button:hover {
-    background-color: rgb(17, 75, 95);
+    background-color: #FAFAFA;
     border-color: rgb(17, 75, 95) 
 }
 

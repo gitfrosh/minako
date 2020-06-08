@@ -13,11 +13,11 @@ import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import {faSortUp} from "@fortawesome/free-solid-svg-icons";
-import {faSortDown} from "@fortawesome/free-solid-svg-icons";
-import {faSort} from "@fortawesome/free-solid-svg-icons";
-import {faChevronCircleRight} from "@fortawesome/free-solid-svg-icons";
-import {faChevronCircleLeft} from "@fortawesome/free-solid-svg-icons";
+import { faSortUp } from "@fortawesome/free-solid-svg-icons";
+import { faSortDown } from "@fortawesome/free-solid-svg-icons";
+import { faSort } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Table = ({ posts, token, fetchPosts }) => {
   console.log(fetchPosts);
@@ -150,7 +150,15 @@ const Table = ({ posts, token, fetchPosts }) => {
     {
       data: data,
       columns: columns,
-      initialState: { pageIndex: 0 },
+      initialState: {
+        pageIndex: 0,
+        sortBy: [
+          {
+            id: "date",
+            desc: true,
+          },
+        ],
+      },
     },
     useFilters,
     useGroupBy,
@@ -169,11 +177,15 @@ const Table = ({ posts, token, fetchPosts }) => {
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
                   <center>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? <FontAwesomeIcon icon={faSortDown} />
-                        : <FontAwesomeIcon icon={faSortUp} />
-                      : ""}
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <FontAwesomeIcon icon={faSortDown} />
+                      ) : (
+                        <FontAwesomeIcon icon={faSortUp} />
+                      )
+                    ) : (
+                      ""
+                    )}
                   </center>
                 </th>
               ))}
@@ -197,12 +209,11 @@ const Table = ({ posts, token, fetchPosts }) => {
       </table>
       <div>
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-        <FontAwesomeIcon icon={faChevronCircleLeft} />
+          <FontAwesomeIcon icon={faChevronCircleLeft} />
         </button>
         {"  "}
         <button onClick={() => nextPage()} disabled={!canNextPage}>
-        <FontAwesomeIcon icon={faChevronCircleRight} />
-
+          <FontAwesomeIcon icon={faChevronCircleRight} />
         </button>
         {/* <div>
           Page{" "}
