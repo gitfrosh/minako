@@ -23,7 +23,10 @@
 
 ### Deployment using node
 * store your credentials and user data in the environment info in your .env file
-* start your node application with node server.js
+* install dependencies with `npm install`
+* build the Next.js build with `npm run build`
+* start your node application with `npm run prod`
+
 
 ### Usage
 * once your minako instance is running, login to http://localhost:1342
@@ -49,7 +52,7 @@
 ### Step 2
 
 - install packages with `npm install` is required
-- get your development server started with `node server.js`
+- get your development server started with `npm run dev`
 - login to http://localhost:1342 with the default username "admin" and the password "password"
 - **HACK AWAY!** 🔨🔨🔨
 

@@ -4,7 +4,9 @@
   "description": "a super lightweight flat-file api-first cms",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node server.js",
+    "build": "next build",
+    "prod": "NODE_ENV=production node server.js"
   },
   "keywords": [
     "cms",

@@ -13,10 +13,10 @@ const next = require("next");
 
 require("dotenv").config();
 
-const secret = process.env.secret || "top_secret";
-const minako_password = process.env.password || "password";
-const minako_username = process.env.username || "admin";
-const minako_userid = process.env.userid || 1;
+const secret = process.env.SECRET || "top_secret";
+const minako_password = process.env.PASSWORD || "password";
+const minako_username = process.env.USERNAME || "admin";
+const cms_port = process.env.CMS_PORT || 1340;
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -77,7 +77,6 @@ app.prepare().then(() => {
           null,
           {
             username: minako_username,
-            id: minako_userid,
           },
           { message: "Logged in Successfully" }
         );
@@ -273,7 +272,6 @@ app.prepare().then(() => {
       const id = req.params.id;
       try {
         const response = db.get("posts").remove({ id: id }).write();
-        console.log(response);
         return res.json({
           success: true,
         });
@@ -297,5 +295,8 @@ app.prepare().then(() => {
   //   res.json({ error: err });
   // });
 
-  server.listen(process.env.CMS_PORT || 1340);
+  server.listen(cms_port, function () {
+    console.log(`Minako server listening on port ${cms_port}`);
+  });
+  
 });
