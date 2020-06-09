@@ -1,3 +1,7 @@
 node_modules
 .next
 .env
+icons8-hiragana-mi-50.png
+yarn-error.log
+yarn.lock
+package-lock.json
