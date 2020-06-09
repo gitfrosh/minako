@@ -9,23 +9,14 @@ services:
         - CMS_PORT=1340
         - NODE_ENV=production
         - SECRET=my_super_safe_secret
-        - PASSWORD=Y5emH-5FWM
+        - PASSWORD=my_super_safe_password
         - USERNAME=admin
     ports:
-        - 3008:1340
+        - 1340:1340
     expose: [1340]
     command: bash -c "npm install && npm run build && npm run prod" 
     working_dir: /var/www/public_html/minako
 
     volumes:
-        - ./.next:/var/www/public_html/minako/.next
-        - ./components:/var/www/public_html/minako/components
-        - ./helpers:/var/www/public_html/minako/helpers
-        - ./node_modules:/var/www/public_html/minako/node_modules
-        - ./pages:/var/www/public_html/minako/pages
-        - ./public:/var/www/public_html/minako/public
-        - ./db.json:/var/www/public_html/minako/db.json
-        - ./package.json:/var/www/public_html/minako/package.json
-        - ./server.js:/var/www/public_html/minako/server.js
-
+        - ./:/var/www/public_html/minako/
 
