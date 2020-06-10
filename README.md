@@ -32,8 +32,8 @@
 * once your minako instance is running, login to http://localhost:1342
 * write your first (e.g. blog) post, edit and delete it later however you like
 * your posts will be exposed under two public endpoints once they get the status "published"
-- **http://localhost:1342/api/published_posts**
-- **http://localhost:1342/api/published_post/{id}**
+  *  **http://localhost:1340/api/published_posts**
+  *  **http://localhost:1340/api/published_post/{id}**
 
 ---
 
@@ -47,18 +47,18 @@
     - 🍴 Fork this repo!
 
 - **Option 2**
-    - 👯 Clone this repo to your local machine using `https://github.com/joanaz/HireDot2.git`
+    - 👯 Clone this repo to your local machine using `https://github.com/gitfrosh/minako.git`
 
 ### Step 2
 
 - install packages with `npm install` is required
 - get your development server started with `npm run dev`
-- login to http://localhost:1342 with the default username "admin" and the password "password"
+- login to http://localhost:1340 with the default username "admin" and the password "password"
 - **HACK AWAY!** 🔨🔨🔨
 
 ### Step 3
 
-- 🔃 Create a new pull request using <a href="https://github.com/joanaz/HireDot2/compare/" target="_blank">`https://github.com/joanaz/HireDot2/compare/`</a>.
+- 🔃 Create a new pull request using <a href="https://github.com/gitfrosh/minako/compare" target="_blank">`https://github.com/gitfrosh/minako/compare`</a>.
 
 ---
 
@@ -68,6 +68,13 @@
     - 
 
 ---
+## Built with
+* <a href="https://github.com/gitfrosh/minako/compare" target="_blank">Next.js</a>
+* <a href="https://github.com/gitfrosh/minako/compare" target="_blank">Node.js</a>
+* <a href="https://github.com/gitfrosh/minako/compare" target="_blank">Milligram</a>
+* <a href="https://github.com/gitfrosh/minako/compare" target="_blank">Passport</a>
+* <a href="https://github.com/gitfrosh/minako/compare" target="_blank">React Markdown Editor Lite</a>
+and others
 
 ## Donations
 

@@ -33,8 +33,16 @@ app.prepare().then(() => {
   db.defaults({
     posts: [
       {
-        test: "test",
-      },
+        "id": "a132e950-aaf1-11ea-94f4-fba97d1ee501",
+        "html": "<h1>Hello World!</h1>",
+        "date": "2020-06-10",
+        "status": "final",
+        "slug": "hello-world",
+        "category": "misc",
+        "title": "Your first minako blog post",
+        "createdAt": "2020-06-10T00:00:00.000Z",
+        "updatedAt": "2020-06-10T00:00:00.000Z"
+      }
     ],
   }).write();
 
@@ -68,8 +76,6 @@ app.prepare().then(() => {
           return done(null, false, { message: "Incorrect username." });
         }
         if (!password || password !== minako_password) {
-          console.log("esgdg");
-
           return done(null, false, { message: "Incorrect password." });
         }
 
@@ -97,6 +103,7 @@ app.prepare().then(() => {
           return res.json({ token });
         });
       } catch (e) {
+        console.log(e);
         return res.sendStatus(500).send({
           success: false,
           message: "Login failed",

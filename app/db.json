@@ -1,0 +1,15 @@
+{
+  "posts": [
+    {
+      "id": "a132e950-aaf1-11ea-94f4-fba97d1ee501",
+      "html": "* Hello World",
+      "date": "2020-06-10",
+      "status": "final",
+      "slug": "hello-world",
+      "category": "misc",
+      "title": "Your first minako blog post",
+      "createdAt": "2020-06-10T00:00:00.000Z",
+      "updatedAt": "2020-06-10T00:00:00.000Z"
+    }
+  ]
+}

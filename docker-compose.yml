@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  minako:
+    image: node
+    environment:
+        - CMS_PORT=1340
+        - NODE_ENV=production
+        - SECRET=my_super_safe_secret
+        - PASSWORD=my_super_safe_password
+        - USERNAME=admin
+    ports:
+        - 1340:1340
+    expose: [1340]
+
+    volumes:
+        - ./app/:/var/www/public_html/minako/
+
+    working_dir: /var/www/public_html/minako/
+
+    command: bash -c "npm install && npm run build && npm run prod" 
