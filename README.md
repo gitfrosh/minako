@@ -1,11 +1,17 @@
 # minako
 
 > minako is a super lightweight and basic CMS
+
 > data is stored in a json file: headless and without database
+
 > API-first! minako provides a REST API for your frontends to consume your posts
+
 > suitable for e.g. small personal blogs 
+
 > enables you to write your posts in plain text or markdown or even include HTML tags
+
 > requires minimal (but useful) post metadata
+
 > simplifies it all with just one admin user and one entity type
 
 ## Deployment & Usage
