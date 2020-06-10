@@ -269,9 +269,7 @@ function PostForm({ post, token }) {
         </label>
       </div>
       <div>
-        <label>
           * Text: <TextField html={post && post.html} />
-        </label>
       </div>
 
       <CreatedAtField />
