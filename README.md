@@ -83,7 +83,7 @@
 * <a href="https://github.com/nodejs" target="_blank">Node.js</a>
 * <a href="https://github.com/milligram/milligram" target="_blank">Milligram</a>
 * <a href="https://github.com/jaredhanson/passport" target="_blank">Passport</a>
-* <a href="https://github.com/gitfrosh/minako/compare" target="_blank">React Markdown Editor Lite</a>
+* <a href="https://github.com/HarryChen0506/react-markdown-editor-lite" target="_blank">React Markdown Editor Lite</a>
 and others
 
 ## Donations
