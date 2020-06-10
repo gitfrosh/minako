@@ -29,7 +29,7 @@
 * start your node application with `npm run prod` or `npm run prod_win`
 
 ### Usage
-* once your minako instance is running, login to http://localhost:1342
+* once your minako instance is running, login to http://localhost:1340
 * write your first (e.g. blog) post; edit and delete it later however you like from the minako UI
 * your posts will be exposed under two public endpoints once they get the status "published"
   *  **http://localhost:1340/api/published_posts**
@@ -70,13 +70,13 @@
 ## Q&A
 
 - **Why another CMS?**
-    - I know there are (probably) hundreds of CMS around, but there were either out of date, much too complex for my use case or did not follow a combined API-first and headless approach.
+    - I know there are (probably) hundreds of CMS around, but they were either out of date, much too complex for my use case or did not follow a combined API-first and headless approach.
 
 - **Is this production-ready?**
     - probably not, though it is used on <a href="https://rike.dev" target="_blank">rike.dev</a>. Be careful about your db.json, it's the only copy of your (blog) posts!
 
 - **Will there be more functionalities?**
-    - I am planning so, though I will strictly refuse to bloat it.
+    - I am planning so, though I will strictly refuse to bloat it. :)
 
 - **Why 'minako'?**
     - because it starts with "min" like in "minimal" is the name of my favourite Sailor Moon character.
